@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+	 <head>
+		  <meta charset="utf-8">
+		  <title>GAME OF LIFE</title>
+		  <h1>LIFE</h1>
+	 </head>
+	 <body>
+		 	<h2>Size: <%= @size_n%>x<%=@size_m%></h2>
+			<p>
+				<ul>
+					<% @@life_seed.each do |i| %>
+						<li style = "list-style-type:none"><%= i %></li>
+					<% end%>
+				</ul>
+			</p>
+			<p>
+				<form action = "/next" method = "post">
+						<input type = "submit" value="Next">
+				</form>
+			</p>
+	 </body>
+</html>
