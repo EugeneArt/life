@@ -3,6 +3,7 @@ require "sinatra"
 @@empty = "O"
 @@live = "X"
 @ty = []
+@@action=[[],[],[]]
 def size(n,m)
   life=Array.new(n){Array.new(m,@@empty)}
 end
@@ -19,8 +20,8 @@ end
 def limit?(index_x,index_y)
   return false if index_x<0
   return false if index_y<0
-  return false if index_x>=@size_n.to_i
-  return false if index_y>=@size_m.to_i
+  return false if index_x>=@@n.to_i
+  return false if index_y>=@@m.to_i
   return true
 end
 
@@ -43,20 +44,20 @@ end
 
 def rules_life(ii,jj,board,n_count)
     if board[ii][jj] == @@empty && n_count == 3
-        @action[0] << ii
-        @action[1] << jj
-        @action[2] << @@live
+        @@action[0] << ii
+        @@action[1] << jj
+        @@action[2] << @@live
       end
     if board[ii][jj] == @@live && n_count == (2..3)
-        @action[0] << ii
-        @action[1] << jj
-        @action[2] << @@live
+        @@action[0] << ii
+        @@action[1] << jj
+        @@action[2] << @@live
       elsif board[ii][jj] == @@live && (n_count >3 || n_count <2)
-        @action[0] << ii
-        @action[1] << jj
-        @action[2] << @@empty
+        @@action[0] << ii
+        @@action[1] << jj
+        @@action[2] << @@empty
     end
-return @action
+return @@action
 end
 
 def print_generation(desk,life)
@@ -80,13 +81,13 @@ post '/form' do
 end
 
 post '/next' do
-	#(0...@@n.to_i).each do |i|
-  #	(0...@@m.to_i).each do |j|
-  #	 	num_neighbors = neighbors(i,j,@@life)
-   #	 	rules_life(i,j,@@life,num_neighbors)
-  	#end 
-	#end
-	# print_generation(@ty,@@life)
+	(0...@@n.to_i).each do |i|
+  	(0...@@m.to_i).each do |j|
+   	num_neighbors = neighbors(i,j,@@life)
+   @ty=	rules_life(i,j,@@life,num_neighbors)
+  	end 
+	end
+	print_generation(@ty,@@life)
 	erb :next
 end
 
