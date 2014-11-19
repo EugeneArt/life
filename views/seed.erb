@@ -6,14 +6,16 @@
 		  <h1>LIFE</h1>
 	 </head>
 	 <body>
-		 	<h2>Size: <%= @size_n%>x<%=@size_m%></h2>
-			<p>
-				<ul>
-					<% @@life_seed.each do |i| %>
-						<li style = "list-style-type:none"><%= i %></li>
-					<% end%>
-				</ul>
-			</p>
+		 	<h2>Size: <%= @@n%>x<%=@@m%></h2>
+			<table>
+				<tr>
+					<%(0...@@n).each do |i| %>
+						<% (0...@@m).each do |j| %>
+						<td><%= @@seed[i][j].to_s %></td>	
+					<% end %>
+					</tr>
+				<% end %>
+				</table>
 			<p>
 				<form action = "/next" method = "post">
 						<input type = "submit" value="Next">
